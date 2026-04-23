@@ -1,0 +1,28 @@
+[build]
+  publish = "."
+
+# Configurações de build
+[build.environment]
+  NODE_VERSION = "18"
+
+# Placeholders para variáveis de ambiente
+[template.environment]
+  SUPABASE_URL = "{{SUPABASE_URL}}"
+  SUPABASE_ANON_KEY = "{{SUPABASE_ANON_KEY}}"
+
+# Headers de segurança
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self' https://*.supabase.co https://*.netlify.app; script-src 'self' 'unsafe-inline' https://*.supabase.co; style-src 'self' 'unsafe-inline';"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+# Redirects (opcional)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
